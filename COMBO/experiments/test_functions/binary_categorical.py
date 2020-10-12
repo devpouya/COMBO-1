@@ -2,9 +2,9 @@ import itertools
 import numpy as np
 
 import torch
-from COMBO.experiments.test_functions.experiment_configuration import ISING_GRID_H, ISING_GRID_W, \
+from experiments.test_functions.experiment_configuration import ISING_GRID_H, ISING_GRID_W, \
     ISING_N_EDGES, CONTAMINATION_N_STAGES
-from COMBO.experiments.test_functions.experiment_configuration import sample_init_points, \
+from experiments.test_functions.experiment_configuration import sample_init_points, \
     generate_ising_interaction, generate_contamination_dynamics
 
 

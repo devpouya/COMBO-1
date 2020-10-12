@@ -2,9 +2,9 @@ import numpy as np
 
 import torch
 
-from COMBO.acquisition.acquisition_optimizers.graph_utils import neighbors
-from COMBO.acquisition.acquisition_marginalization import acquisition_expectation
-from COMBO.acquisition.acquisition_functions import expected_improvement
+from acquisition.acquisition_optimizers.graph_utils import neighbors
+from acquisition.acquisition_marginalization import acquisition_expectation
+from acquisition.acquisition_functions import expected_improvement
 
 
 N_RANDOM_VERTICES = 20000

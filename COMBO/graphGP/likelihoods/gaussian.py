@@ -1,6 +1,6 @@
 import torch
 
-from COMBO.graphGP.likelihoods.likelihood import Likelihood
+from graphGP.likelihoods.likelihood import Likelihood
 
 
 class GaussianLikelihood(Likelihood):

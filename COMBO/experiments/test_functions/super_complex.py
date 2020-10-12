@@ -2,8 +2,8 @@ import numpy as np
 
 import torch
 
-from COMBO.experiments.test_functions import sample_init_points
-from COMBO.experiments.test_functions.travel_plan import generate_travel_plan_problem, number_of_edges
+from experiments.test_functions import sample_init_points
+from experiments.test_functions.travel_plan import generate_travel_plan_problem, number_of_edges
 
 
 TRAVEL_N_CITIES = 6

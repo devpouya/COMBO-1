@@ -2,7 +2,7 @@ import itertools
 import numpy as np
 import torch
 
-from COMBO.experiments.exp_utils import sample_init_points
+from experiments.exp_utils import sample_init_points
 
 
 def generate_function_on_highorderbinary(n_variables, highest_order, random_seed=None):

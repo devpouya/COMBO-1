@@ -7,11 +7,11 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 
-from COMBO.config import data_directory
+from config import data_directory
 
-from COMBO.experiments.NAS.data_config import CIFAR10_NORM_MEAN, CIFAR10_NORM_STD
-from COMBO.experiments.NAS.data_config import FashionMNIST_NORM_MEAN, FashionMNIST_NORM_STD
-from COMBO.experiments.NAS.data_config import MNIST_NORM_MEAN, MNIST_NORM_STD
+from experiments.NAS.data_config import CIFAR10_NORM_MEAN, CIFAR10_NORM_STD
+from experiments.NAS.data_config import FashionMNIST_NORM_MEAN, FashionMNIST_NORM_STD
+from experiments.NAS.data_config import MNIST_NORM_MEAN, MNIST_NORM_STD
 
 
 N_VALID = 10000

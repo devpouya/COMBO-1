@@ -17,7 +17,8 @@ def experiment_directory():
 	elif hostname[:3] == 'vpn':
 		return '/Users/changyongoh/Experiments/COMBO'
 	else:
-		raise ValueError('Set proper experiment directory on your machine.')
+		print('Setting proper experiment directory on your machine.')
+		return '/Users/pouya/github/COMBO/test'
 
 
 def data_directory():

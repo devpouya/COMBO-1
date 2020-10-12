@@ -2,10 +2,10 @@ import numpy as np
 
 import torch
 
-from COMBO.graphGP.inference.inference import Inference
-from COMBO.graphGP.sampler.tool_partition import group_input
-from COMBO.graphGP.sampler.tool_slice_sampling import univariate_slice_sampling
-from COMBO.graphGP.sampler.priors import log_prior_edgeweight
+from graphGP.inference.inference import Inference
+from graphGP.sampler.tool_partition import group_input
+from graphGP.sampler.tool_slice_sampling import univariate_slice_sampling
+from graphGP.sampler.priors import log_prior_edgeweight
 
 
 def slice_edgeweight(model, input_data, output_data, n_vertices, log_beta,

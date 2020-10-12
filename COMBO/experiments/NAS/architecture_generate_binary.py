@@ -2,7 +2,7 @@ import toposort
 import numpy as np
 
 import torch.nn as nn
-from COMBO.experiments.NAS.architecture_nodes import NodeId, NodeConv3by3, NodeConv5by5, NodeMaxpool3by3
+from experiments.NAS.architecture_nodes import NodeId, NodeConv3by3, NodeConv5by5, NodeMaxpool3by3
 
 
 def valid_net_topo(adj_mat):

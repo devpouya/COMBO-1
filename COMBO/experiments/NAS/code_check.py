@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import torch
 import torchvision
 
-from COMBO.experiments.NAS.nas_binary_cifar10 import load_cifar10
-from COMBO.experiments.NAS.config_cifar10 import NORM_MEAN, NORM_STD, CIFAR10_CLASSES
+from experiments.NAS.nas_binary_cifar10 import load_cifar10
+from experiments.NAS.config_cifar10 import NORM_MEAN, NORM_STD, CIFAR10_CLASSES
 
 
 def imshow(img, title_str):

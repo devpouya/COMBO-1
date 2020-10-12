@@ -9,8 +9,8 @@ import torch.optim as optim
 import torch.cuda
 
 
-from COMBO.experiments.NAS.architecture_generate_binary import valid_net_topo, NASBinaryCNN
-from COMBO.experiments.NAS.data_loader import load_cifar10, load_fashionmnist, load_mnist
+from experiments.NAS.architecture_generate_binary import valid_net_topo, NASBinaryCNN
+from experiments.NAS.data_loader import load_cifar10, load_fashionmnist, load_mnist
 
 
 N_COMPARE = 10

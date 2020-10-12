@@ -1,6 +1,6 @@
 import torch
 
-from COMBO.graphGP.sampler.tool_partition import group_input, ungroup_input
+from graphGP.sampler.tool_partition import group_input, ungroup_input
 
 
 def neighbors(x, partition_samples, edge_mat_samples, n_vertices, uniquely=False):

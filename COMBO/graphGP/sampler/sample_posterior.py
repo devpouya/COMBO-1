@@ -3,10 +3,10 @@ import time
 import copy
 import numpy as np
 
-from COMBO.graphGP.sampler.sample_hyper import slice_hyper
-from COMBO.graphGP.sampler.sample_edgeweight import slice_edgeweight
-from COMBO.graphGP.sampler.tool_partition import direct_product
-from COMBO.config import PROGRESS_BAR_LEN
+from graphGP.sampler.sample_hyper import slice_hyper
+from graphGP.sampler.sample_edgeweight import slice_edgeweight
+from graphGP.sampler.tool_partition import direct_product
+from config import PROGRESS_BAR_LEN
 
 
 def posterior_sampling(model, input_data, output_data, n_vertices, adj_mat_list,

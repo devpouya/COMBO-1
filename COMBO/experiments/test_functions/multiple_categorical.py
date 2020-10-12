@@ -2,9 +2,9 @@ import numpy as np
 
 import torch
 
-from COMBO.experiments.test_functions.experiment_configuration import sample_init_points, \
+from experiments.test_functions.experiment_configuration import sample_init_points, \
 	generate_ising_interaction
-from COMBO.experiments.test_functions.binary_categorical import spin_covariance, partition, ising_dense
+from experiments.test_functions.binary_categorical import spin_covariance, partition, ising_dense
 
 PESTCONTROL_N_CHOICE = 5
 PESTCONTROL_N_STAGES = 25

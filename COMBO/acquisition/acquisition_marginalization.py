@@ -1,11 +1,11 @@
 import torch
 
-from COMBO.graphGP.kernels.diffusionkernel import DiffusionKernel
-from COMBO.graphGP.models.gp_regression import GPRegression
-from COMBO.graphGP.inference.inference import Inference
-from COMBO.graphGP.sampler.tool_partition import group_input
+from graphGP.kernels.diffusionkernel import DiffusionKernel
+from graphGP.models.gp_regression import GPRegression
+from graphGP.inference.inference import Inference
+from graphGP.sampler.tool_partition import group_input
 
-from COMBO.acquisition.acquisition_functions import expected_improvement
+from acquisition.acquisition_functions import expected_improvement
 
 
 def acquisition_expectation(x, inference_samples, partition_samples, n_vertices, acquisition_func=expected_improvement,

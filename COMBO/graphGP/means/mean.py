@@ -1,4 +1,4 @@
-from COMBO.graphGP.modules.gp_modules import GPModule
+from graphGP.modules.gp_modules import GPModule
 
 
 class Mean(GPModule):

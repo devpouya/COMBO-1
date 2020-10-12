@@ -8,12 +8,12 @@ from hyperopt import fmin, tpe
 
 import torch
 
-from COMBO.experiments.test_functions import generate_random_seed_pestcontrol, generate_random_seed_pair_centroid
-from COMBO.experiments.test_functions import PESTCONTROL_N_STAGES, CENTROID_N_EDGES, CENTROID_GRID, CENTROID_N_CHOICE, PESTCONTROL_N_CHOICE
-from COMBO.experiments.test_functions import _pest_control_score, Centroid, ising_dense, partition, edge_choice
-from COMBO.experiments.test_functions import Branin
-from COMBO.experiments.test_functions import sample_init_points
-from COMBO.baselines.utils import result_dir
+from experiments.test_functions import generate_random_seed_pestcontrol, generate_random_seed_pair_centroid
+from experiments.test_functions import PESTCONTROL_N_STAGES, CENTROID_N_EDGES, CENTROID_GRID, CENTROID_N_CHOICE, PESTCONTROL_N_CHOICE
+from experiments.test_functions import _pest_control_score, Centroid, ising_dense, partition, edge_choice
+from experiments.test_functions import Branin
+from experiments.test_functions import sample_init_points
+from baselines.utils import result_dir
 
 
 RESULT_DIR = result_dir()

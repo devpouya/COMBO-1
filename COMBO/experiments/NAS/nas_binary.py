@@ -9,12 +9,12 @@ from pthflops import count_ops
 import torch
 import torch.cuda
 
-from COMBO.experiments.NAS.architecture_generate_binary import NASBinaryCNN
-from COMBO.experiments.NAS.data_config import MNIST_N_CH_IN, MNIST_H_IN, MNIST_W_IN
-from COMBO.experiments.NAS.data_config import FashionMNIST_N_CH_IN, FashionMNIST_H_IN, FashionMNIST_W_IN
-from COMBO.experiments.NAS.data_config import CIFAR10_N_CH_IN, CIFAR10_H_IN, CIFAR10_W_IN
+from experiments.NAS.architecture_generate_binary import NASBinaryCNN
+from experiments.NAS.data_config import MNIST_N_CH_IN, MNIST_H_IN, MNIST_W_IN
+from experiments.NAS.data_config import FashionMNIST_N_CH_IN, FashionMNIST_H_IN, FashionMNIST_W_IN
+from experiments.NAS.data_config import CIFAR10_N_CH_IN, CIFAR10_H_IN, CIFAR10_W_IN
 
-from COMBO.experiments.NAS.architecture_in_binary import init_architectures
+from experiments.NAS.architecture_in_binary import init_architectures
 
 
 class NASBinary(object):

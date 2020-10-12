@@ -1,8 +1,8 @@
 import torch
 
-from COMBO.acquisition.acquisition_functions import expected_improvement
-from COMBO.acquisition.acquisition_marginalization import acquisition_expectation
-from COMBO.acquisition.acquisition_optimizers.graph_utils import neighbors
+from acquisition.acquisition_functions import expected_improvement
+from acquisition.acquisition_marginalization import acquisition_expectation
+from acquisition.acquisition_optimizers.graph_utils import neighbors
 
 
 def greedy_ascent(x_init, inference_samples, partition_samples, edge_mat_samples, n_vertices,

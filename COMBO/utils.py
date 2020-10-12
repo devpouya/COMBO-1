@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 
 import torch
-from COMBO.config import experiment_directory
+from config import experiment_directory
 
 
 def model_data_filenames(exp_dir, objective_name):

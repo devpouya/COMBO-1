@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.special import gammaln
 
-from COMBO.graphGP.sampler.tool_partition import compute_group_size
+from graphGP.sampler.tool_partition import compute_group_size
 
 # For numerical stability in exponential
 LOG_LOWER_BND = -12.0

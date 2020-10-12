@@ -1,7 +1,7 @@
 import math
 
 import torch
-from COMBO.graphGP.kernels.graphkernel import GraphKernel
+from graphGP.kernels.graphkernel import GraphKernel
 
 
 class DiffusionKernel(GraphKernel):

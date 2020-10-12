@@ -1,8 +1,8 @@
 import torch
 
-from COMBO.graphGP.likelihoods.gaussian import GaussianLikelihood
-from COMBO.graphGP.means.constant import ConstantMean
-from COMBO.graphGP.models.gp import GP
+from graphGP.likelihoods.gaussian import GaussianLikelihood
+from graphGP.means.constant import ConstantMean
+from graphGP.models.gp import GP
 
 
 class GPRegression(GP):

@@ -4,25 +4,25 @@ import argparse
 
 import torch
 
-from COMBO.graphGP.kernels.diffusionkernel import DiffusionKernel
-from COMBO.graphGP.models.gp_regression import GPRegression
-from COMBO.graphGP.sampler.sample_posterior import posterior_sampling
+from graphGP.kernels.diffusionkernel import DiffusionKernel
+from graphGP.models.gp_regression import GPRegression
+from graphGP.sampler.sample_posterior import posterior_sampling
 
-from COMBO.acquisition.acquisition_optimization import next_evaluation
-from COMBO.acquisition.acquisition_functions import expected_improvement
-from COMBO.acquisition.acquisition_marginalization import inference_sampling
+from acquisition.acquisition_optimization import next_evaluation
+from acquisition.acquisition_functions import expected_improvement
+from acquisition.acquisition_marginalization import inference_sampling
 
-from COMBO.config import experiment_directory
-from COMBO.utils import model_data_filenames, load_model_data, displaying_and_logging
+from config import experiment_directory
+from utils import model_data_filenames, load_model_data, displaying_and_logging
 
-from COMBO.experiments.random_seed_config import generate_random_seed_pair_ising, \
+from experiments.random_seed_config import generate_random_seed_pair_ising, \
     generate_random_seed_pair_contamination, generate_random_seed_pestcontrol, generate_random_seed_pair_centroid, \
     generate_random_seed_maxsat
-from COMBO.experiments.test_functions.discretized_continuous import Branin, Hartmann6
-from COMBO.experiments.test_functions.binary_categorical import Ising, Contamination
-from COMBO.experiments.test_functions.multiple_categorical import PestControl, Centroid
-from COMBO.experiments.MaxSAT.maximum_satisfiability import MaxSAT28, MaxSAT43, MaxSAT60
-from COMBO.experiments.NAS.nas_binary import NASBinary
+from experiments.test_functions.discretized_continuous import Branin, Hartmann6
+from experiments.test_functions.binary_categorical import Ising, Contamination
+from experiments.test_functions.multiple_categorical import PestControl, Centroid
+from experiments.MaxSAT.maximum_satisfiability import MaxSAT28, MaxSAT43, MaxSAT60
+#from experiments.NAS.nas_binary import NASBinary
 
 
 def COMBO(objective=None, n_eval=200, path=None, parallel=False, store_data=False, **kwargs):
