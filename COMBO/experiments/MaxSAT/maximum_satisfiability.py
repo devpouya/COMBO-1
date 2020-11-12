@@ -3,7 +3,7 @@ import numpy as np
 
 import torch
 
-from experiments.exp_utils import sample_init_points
+from ..exp_utils import sample_init_points
 
 MAXSAT_DIR_NAME = os.path.join(os.path.split(__file__)[0], 'maxsat2018_data')
 

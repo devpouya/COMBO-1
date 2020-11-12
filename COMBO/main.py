@@ -4,24 +4,24 @@ import argparse
 
 import torch
 
-from graphGP.kernels.diffusionkernel import DiffusionKernel
-from graphGP.models.gp_regression import GPRegression
-from graphGP.sampler.sample_posterior import posterior_sampling
+from .graphGP.kernels.diffusionkernel import DiffusionKernel
+from .graphGP.models.gp_regression import GPRegression
+from .graphGP.sampler.sample_posterior import posterior_sampling
 
-from acquisition.acquisition_optimization import next_evaluation
-from acquisition.acquisition_functions import expected_improvement
-from acquisition.acquisition_marginalization import inference_sampling
+from .acquisition.acquisition_optimization import next_evaluation
+from .acquisition.acquisition_functions import expected_improvement
+from .acquisition.acquisition_marginalization import inference_sampling
 
-from config import experiment_directory
-from utils import model_data_filenames, load_model_data, displaying_and_logging
+from .config import experiment_directory
+from .utils import model_data_filenames, load_model_data, displaying_and_logging
 
-from experiments.random_seed_config import generate_random_seed_pair_ising, \
+from .experiments.random_seed_config import generate_random_seed_pair_ising, \
     generate_random_seed_pair_contamination, generate_random_seed_pestcontrol, generate_random_seed_pair_centroid, \
     generate_random_seed_maxsat
-from experiments.test_functions.discretized_continuous import Branin, Hartmann6
-from experiments.test_functions.binary_categorical import Ising, Contamination
-from experiments.test_functions.multiple_categorical import PestControl, Centroid
-from experiments.MaxSAT.maximum_satisfiability import MaxSAT28, MaxSAT43, MaxSAT60
+from .experiments.test_functions.discretized_continuous import Branin, Hartmann6
+from .experiments.test_functions.binary_categorical import Ising, Contamination
+from .experiments.test_functions.multiple_categorical import PestControl, Centroid, Vegetale
+from .experiments.MaxSAT.maximum_satisfiability import MaxSAT28, MaxSAT43, MaxSAT60
 #from experiments.NAS.nas_binary import NASBinary
 
 
@@ -129,68 +129,93 @@ def COMBO(objective=None, n_eval=200, path=None, parallel=False, store_data=Fals
         print('Optimizing %s with regularization %.2E up to %4d visualization random seed : %s'
               % (objective.__class__.__name__, objective.lamda if hasattr(objective, 'lamda') else 0, n_eval,
                  objective.random_seed_info if hasattr(objective, 'random_seed_info') else 'none'))
+        return eval_inputs, eval_outputs
 
 
-if __name__ == '__main__':
-    parser_ = argparse.ArgumentParser(
-        description='COMBO : Combinatorial Bayesian Optimization using the graph Cartesian product')
-    parser_.add_argument('--n_eval', dest='n_eval', type=int, default=1)
-    parser_.add_argument('--path', dest='path')
-    parser_.add_argument('--objective', dest='objective')
-    parser_.add_argument('--lamda', dest='lamda', type=float, default=None)
-    parser_.add_argument('--random_seed_config', dest='random_seed_config', type=int, default=None)
-    parser_.add_argument('--parallel', dest='parallel', action='store_true', default=False)
-    parser_.add_argument('--device', dest='device', type=int, default=None)
+#if __name__ == '__main__':
+def main(objective,space=None,platforms=None,bottom_top_heights=None,
+         rain_occ=None, sun_occ=None,lamda=0.01,n_eval=100,path=None,random_seed_config=3, normalizer=None,x=None):
+    #parser_ = argparse.ArgumentParser(
+    #    description='COMBO : Combinatorial Bayesian Optimization using the graph Cartesian product')
+    #parser_.add_argument('--n_eval', dest='n_eval', type=int, default=1)
+    #parser_.add_argument('--path', dest='path')
+    #parser_.add_argument('--objective', dest='objective')
+    #parser_.add_argument('--space',dest='space')
+    #parser_.add_argument('--platforms',dest='platforms')
+    #parser_.add_argument('--lamda', dest='lamda', type=float, default=None)
+    #parser_.add_argument('--random_seed_config', dest='random_seed_config', type=int, default=None)
+    #parser_.add_argument('--parallel', dest='parallel', action='store_true', default=False)
+    #parser_.add_argument('--device', dest='device', type=int, default=None)
 
-    args_ = parser_.parse_args()
-    print(args_)
-    kwag_ = vars(args_)
-    path_ = kwag_['path']
-    objective_ = kwag_['objective']
-    random_seed_config_ = kwag_['random_seed_config']
-    parallel_ = kwag_['parallel']
-    if args_.device is None:
-        del kwag_['device']
-    print(kwag_)
-    if random_seed_config_ is not None:
-        assert 1 <= int(random_seed_config_) <= 25
-        random_seed_config_ -= 1
-    assert (path_ is None) != (objective_ is None)
+    #args_ = parser_.parse_args()
+    #print(args_)
+    #path_ = kwag_['path']
+    #objective_ = kwag_['objective']
+    #space_ = kwag_['space']
+    #platforms_ = kwag_['platforms']
+    #print("space_ {}".format(space_))
+    #print("platforms {}".format(platforms_))
+    #random_seed_config_ = kwag_['random_seed_config']
+    #parallel_ = kwag_['parallel']
 
-    if objective_ == 'branin':
-        kwag_['objective'] = Branin()
-    elif objective_ == 'hartmann6':
-        kwag_['objective'] = Hartmann6()
-    elif objective_ == 'ising':
-        random_seed_pair_ = generate_random_seed_pair_ising()
-        case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
-        init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
-        kwag_['objective'] = Ising(lamda=args_.lamda, random_seed_pair=(case_seed_, init_seed_))
-    elif objective_ == 'contamination':
-        random_seed_pair_ = generate_random_seed_pair_contamination()
-        case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
-        init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
-        kwag_['objective'] = Contamination(lamda=args_.lamda, random_seed_pair=(case_seed_, init_seed_))
-    elif objective_ == 'centroid':
-        random_seed_pair_ = generate_random_seed_pair_centroid()
-        case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
-        init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
-        kwag_['objective'] = Centroid(random_seed_pair=(case_seed_, init_seed_))
-    elif objective_ == 'pestcontrol':
-        random_seed_ = sorted(generate_random_seed_pestcontrol())[random_seed_config_]
-        kwag_['objective'] = PestControl(random_seed=random_seed_)
-    elif objective_ == 'maxsat28':
-        random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
-        kwag_['objective'] = MaxSAT28(random_seed=random_seed_)
-    elif objective_ == 'maxsat43':
-        random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
-        kwag_['objective'] = MaxSAT43(random_seed=random_seed_)
-    elif objective_ == 'maxsat60':
-        random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
-        kwag_['objective'] = MaxSAT60(random_seed=random_seed_)
-    elif objective_ == 'nasbinary':
-        kwag_['objective'] = NASBinary(data_type='CIFAR10', device=args_.device)
-        kwag_['store_data'] = True
-    else:
-        raise NotImplementedError
-    COMBO(**kwag_)
+
+
+    #if args_.device is None:
+    #    del kwag_['device']
+    #print(kwag_)
+    if random_seed_config is not None:
+        assert 1 <= int(random_seed_config) <= 25
+        random_seed_config -= 1
+    #assert (path_ is None) != (objective_ is None)
+
+    #if objective == 'branin':
+    #    kwag_['objective'] = Branin()
+    #elif objective_ == 'hartmann6':
+    #    kwag_['objective'] = Hartmann6()
+    #elif objective_ == 'ising':
+    #    random_seed_pair_ = generate_random_seed_pair_ising()
+    #    case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
+    #    init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
+    #    kwag_['objective'] = Ising(lamda=args_.lamda, random_seed_pair=(case_seed_, init_seed_))
+    #elif objective_ == 'contamination':
+    #    random_seed_pair_ = generate_random_seed_pair_contamination()
+    #    case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
+    #    init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
+    #    kwag_['objective'] = Contamination(lamda=args_.lamda, random_seed_pair=(case_seed_, init_seed_))
+    #elif objective_ == 'centroid':
+    #    random_seed_pair_ = generate_random_seed_pair_centroid()
+    #    case_seed_ = sorted(random_seed_pair_.keys())[int(random_seed_config_ / 5)]
+    #    init_seed_ = sorted(random_seed_pair_[case_seed_])[int(random_seed_config_ % 5)]
+    #    kwag_['objective'] = Centroid(random_seed_pair=(case_seed_, init_seed_))
+    #if objective == 'pestcontrol':
+    #    random_seed_ = sorted(generate_random_seed_pestcontrol())[random_seed_config]
+    #    objective_ = PestControl(random_seed=random_seed_)
+
+    #if objective == "vegetale":
+    #    random_seed_ = sorted(generate_random_seed_pestcontrol())[random_seed_config]
+    #    objective_ == Vegetale(space=space,platforms=platforms,random_seed=random_seed_)
+    #else:
+    #    raise NotImplementedError
+
+    #elif objective_ == 'maxsat28':
+    #    random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
+    #    kwag_['objective'] = MaxSAT28(random_seed=random_seed_)
+    #elif objective_ == 'maxsat43':
+    #    random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
+    #    kwag_['objective'] = MaxSAT43(random_seed=random_seed_)
+    #elif objective_ == 'maxsat60':
+    #    random_seed_ = sorted(generate_random_seed_maxsat())[random_seed_config_]
+    #    kwag_['objective'] = MaxSAT60(random_seed=random_seed_)
+    #elif objective_ == 'nasbinary':
+    #    kwag_['objective'] = NASBinary(data_type='CIFAR10', device=args_.device)
+    #    kwag_['store_data'] = True
+    #else:
+    #    raise NotImplementedError
+    random_seed_ = sorted(generate_random_seed_pestcontrol())[random_seed_config]
+    objective_ =Vegetale(space=space,platforms=platforms,x_=x,random_seed=random_seed_,
+                         bottom_top_heights=bottom_top_heights,rain_occ=rain_occ,sun_occ=sun_occ,normalizer=normalizer)
+
+    eval_in, eval_out = COMBO(objective_,n_eval=100, path=None, parallel=False, store_data=False)
+    #print("innn {}".format(eval_in))
+    #("out {}".format(eval_out))
+    return eval_in[-1,:]

@@ -1,6 +1,6 @@
 import torch
 
-from graphGP.modules.gp_modules import GPModule
+from ..modules.gp_modules import GPModule
 
 
 class GraphKernel(GPModule):

@@ -7,9 +7,9 @@ import numpy as np
 from simanneal import Annealer
 from simanneal.anneal import round_figures
 
-from acquisition.acquisition_functions import expected_improvement
-from acquisition.acquisition_marginalization import acquisition_expectation
-from acquisition.acquisition_optimizers.graph_utils import neighbors
+from ..acquisition_functions import expected_improvement
+from ..acquisition_marginalization import acquisition_expectation
+from ..acquisition_optimizers.graph_utils import neighbors
 
 
 TMP_FILE_NAME = ''

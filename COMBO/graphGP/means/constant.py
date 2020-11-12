@@ -1,6 +1,6 @@
 import torch
 
-from graphGP.means.mean import Mean
+from ..means.mean import Mean
 
 
 class ConstantMean(Mean):

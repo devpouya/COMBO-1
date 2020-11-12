@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.special import gammaln
 
-from graphGP.sampler.tool_partition import compute_group_size
+from ..sampler.tool_partition import compute_group_size
 
 # For numerical stability in exponential
 LOG_LOWER_BND = -12.0
@@ -21,6 +21,8 @@ def log_prior_constmean(constmean, output_min, output_max):
 	"""
 	output_mid = (output_min + output_max) / 2.0
 	output_rad = (output_max - output_min) * STABLE_MEAN_RNG / 2.0
+
+
 	# Unstable parameter in sampling
 	if constmean < output_mid - output_rad or output_mid + output_rad < constmean:
 		return -float('inf')
@@ -28,6 +30,8 @@ def log_prior_constmean(constmean, output_min, output_max):
 	# return 0
 	# Truncated Gaussian
 	stable_dev = output_rad / 2.0
+	if stable_dev == 0.0:
+		stable_dev = 1.0
 	return -np.log(stable_dev) - 0.5 * (constmean - output_mid) ** 2 / stable_dev ** 2
 
 

@@ -8,12 +8,12 @@ import numpy as np
 import torch
 import torch.multiprocessing as mp
 
-from acquisition.acquisition_optimizers.starting_points import optim_inits
-from acquisition.acquisition_optimizers.greedy_ascent import greedy_ascent
-from acquisition.acquisition_optimizers.simulated_annealing import simulated_annealing
-from acquisition.acquisition_functions import expected_improvement
-from acquisition.acquisition_marginalization import prediction_statistic
-from acquisition.acquisition_optimizers.graph_utils import neighbors
+from .acquisition_optimizers.starting_points import optim_inits
+from .acquisition_optimizers.greedy_ascent import greedy_ascent
+from .acquisition_optimizers.simulated_annealing import simulated_annealing
+from .acquisition_functions import expected_improvement
+from .acquisition_marginalization import prediction_statistic
+from .acquisition_optimizers.graph_utils import neighbors
 
 
 MAX_N_ASCENT = float('inf')
